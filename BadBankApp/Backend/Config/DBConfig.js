@@ -2,11 +2,15 @@ import mongoose from "mongoose";
 
 const DBconfig=async()=>{
     try {
-        await mongoose.connect('mongodb://localhost:27017')
+        const mongoURI = process.env.MONGODB_URI;
+        await mongoose.connect(mongoURI, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        });
         console.log("DB connected");
     } catch (error) {
-        console.log("couldn't connect DB",error);
+        console.log("couldn't connect DB", error);
     }
 }
 
-export default DBconfig;
+export default DBconfig;
